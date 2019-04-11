@@ -1,21 +1,40 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
-export default class App extends React.Component {
+import { Container, Title } from "./styles/common";
+
+import { createStackNavigator, createAppContainer } from "react-navigation";
+
+import ToggleView from "./components/ToggleView";
+
+class Home extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <Container>
+        <Title>Core Components</Title>
+        <Button
+          title="Toggle View"
+          onPress={() => this.props.navigation.navigate("View")}
+        />
+        <Button
+          title="Toggle Flexbox"
+          onPress={() => this.props.navigation.navigate("Flexbox")}
+        />
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+// ------------------------------- navigation-components ------------------------------- //
+const AppNavigator = createStackNavigator({
+  Home: Home,
+  View: ToggleView
 });
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
